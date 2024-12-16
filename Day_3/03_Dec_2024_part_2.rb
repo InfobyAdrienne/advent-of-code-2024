@@ -1,26 +1,26 @@
 input_file = File.open("data.txt")
-input_data = input_file.read
+# input_data = input_file.read
+input_data = "do()xmul(2,4)&mul[3,7]!^don't()_mul(5,5)+mul(32,64](mul(11,8)undo()?mul(8,5))"
 
 def mul(a,b)
   a * b
 end
 
 do_array = []
-dont_array = []
 
 # Split up the input data into parts that begin with "do()" and end when they get to a "don't()"
 input_data.scan(/do\(\).*?(?=don't\(\))/m) do |match|
   do_array.push(match)
-end 
-
-puts do_array
+end
 
 # Join the array into a string because an array cannot be scanned
 do_array = do_array.join(" ")
 
+puts "Extracted do() sections:"
+puts do_array
+
 multiplications = []
 total = []
-
 do_array.scan(/mul\(\d{1,3},\d{1,3}\)/) do |match|
   multiplications.push(match)
 
@@ -34,7 +34,9 @@ do_array.scan(/mul\(\d{1,3},\d{1,3}\)/) do |match|
   total.push(results)
 end 
 
-# puts total.sum
+puts multiplications
+
+puts total.sum
 
 # 85999401 // answer is too low 
 # 86751331 too low
